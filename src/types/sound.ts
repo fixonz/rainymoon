@@ -410,6 +410,6 @@ export type ThunderType = 'distant' | 'close' | 'storm';
 
 export interface SoundInstance {
   source: AudioBufferSourceNode;
-  gain: GainNode;
+  gainNode: GainNode;
   isPlaying: boolean;
 } 

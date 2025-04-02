@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [showLightning, setShowLightning] = useState(false);
   const [showStars] = useState(true);
   const [showFog] = useState(true);
+  const [activeSound, setActiveSound] = useState<string | null>(null);
   const [moonSettings, setMoonSettings] = useState<MoonSettings>({
     position: {
       x: window.innerWidth * 0.8,
@@ -36,9 +37,16 @@ const App: React.FC = () => {
     
     try {
       if (isPlaying) {
-        soundEngineRef.current.stopSound('gentleRain');
+        if (activeSound) {
+          soundEngineRef.current.stopSound(activeSound);
+        }
       } else {
-        await soundEngineRef.current.playSound('gentleRain', 1, true);
+        if (!activeSound) {
+          setActiveSound('gentleRain');
+          await soundEngineRef.current.playSound('gentleRain', 1, true);
+        } else {
+          await soundEngineRef.current.playSound(activeSound, 1, true);
+        }
       }
       setIsPlaying(!isPlaying);
     } catch (error) {
@@ -46,10 +54,19 @@ const App: React.FC = () => {
     }
   };
 
-  const handleRainTypeChange = (_type: string) => {
-    if (isPlaying && soundEngineRef.current) {
-      soundEngineRef.current.stopSound('gentleRain');
-      setIsPlaying(false);
+  const handleRainTypeChange = async (type: string) => {
+    if (!soundEngineRef.current) return;
+
+    try {
+      if (isPlaying && activeSound) {
+        soundEngineRef.current.stopSound(activeSound);
+      }
+      setActiveSound(type);
+      if (isPlaying) {
+        await soundEngineRef.current.playSound(type, 1, true);
+      }
+    } catch (error) {
+      console.error('Error changing rain type:', error);
     }
   };
 
@@ -58,8 +75,8 @@ const App: React.FC = () => {
   };
 
   const handleVolumeChange = async (newVolume: number) => {
-    if (!soundEngineRef.current) return;
-    await soundEngineRef.current.setVolume('gentleRain', newVolume);
+    if (!soundEngineRef.current || !activeSound) return;
+    await soundEngineRef.current.setVolume(activeSound, newVolume);
   };
 
   const handleLightningToggle = (enabled: boolean) => {
