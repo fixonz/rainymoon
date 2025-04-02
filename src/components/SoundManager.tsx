@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { RainSoundEngine } from '../utils/soundEngine';
-import { SOUNDS, SoundId } from '../types/sound';
 
 interface SoundManagerProps {
   onPlayPause: () => void;
