@@ -21,6 +21,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    minify: false,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
@@ -35,14 +36,7 @@ export default defineConfig({
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
       },
-    },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    }
   },
   optimizeDeps: {
     include: ['react', 'react-dom'],
