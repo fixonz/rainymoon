@@ -40,6 +40,7 @@ yarn-error.log*
 public/sounds/rain/743916__klankbeeld__woodpecker-unknown-1122-am-forest-forest-loonse-en-drunense-duinen.wav
 public/sounds/RainyMood.mp3
 public/sounds/rain/195656__klankbeeld__thunder-in-the-city-1-am-130728_00.flac
+public/sounds/base/RainyMood.mp3
 
 # Only include new sounds
 !public/sounds/newSounds/
