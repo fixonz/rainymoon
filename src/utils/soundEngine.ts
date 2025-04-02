@@ -27,21 +27,29 @@ export class RainSoundEngine {
     if (this.isInitialized) return;
 
     try {
-      this.context = new AudioContext();
-      this.masterGain = this.context.createGain();
-      this.masterGain.connect(this.context.destination);
+      // Don't create AudioContext here - wait for playSound
       this.isInitialized = true;
-      console.log('AudioContext initialized successfully');
     } catch (error) {
-      console.error('Failed to initialize AudioContext:', error);
+      console.error('Failed to initialize:', error);
       throw error;
     }
   }
 
-  async loadSound(soundId: SoundId): Promise<AudioBuffer> {
-    if (!this.isInitialized) {
-      await this.init();
+  private async ensureContext(): Promise<void> {
+    if (!this.context) {
+      this.context = new AudioContext();
+      this.masterGain = this.context.createGain();
+      this.masterGain.connect(this.context.destination);
+      
+      // Resume context if it's suspended (needed for Safari)
+      if (this.context.state === 'suspended') {
+        await this.context.resume();
+      }
     }
+  }
+
+  async loadSound(soundId: SoundId): Promise<AudioBuffer> {
+    await this.ensureContext();
 
     if (!this.context) {
       throw new Error('AudioContext not initialized');
@@ -54,13 +62,9 @@ export class RainSoundEngine {
       }
 
       const sound = SOUNDS[soundId];
-      console.log('Loading sound:', sound.label);
-      
       const response = await fetch(sound.path);
       const arrayBuffer = await response.arrayBuffer();
-      console.log('Loaded', arrayBuffer.byteLength / 1024 / 1024, 'MB');
-      
-      const audioBuffer = await this.context!.decodeAudioData(arrayBuffer);
+      const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
       this.preloadedBuffers.set(soundId, audioBuffer);
       return audioBuffer;
     } catch (error) {
@@ -87,9 +91,7 @@ export class RainSoundEngine {
 
   async playSound(soundId: SoundId, volume: number = 1, loop: boolean = true): Promise<void> {
     try {
-      if (!this.context) {
-        this.context = new (window.AudioContext || (window as any).webkitAudioContext)();
-      }
+      await this.ensureContext();
       
       // Get or load the audio buffer
       let buffer = this.preloadedBuffers.get(soundId);
@@ -98,8 +100,8 @@ export class RainSoundEngine {
       }
       
       // Create source and gain nodes
-      const source = this.context.createBufferSource();
-      const gain = this.context.createGain();
+      const source = this.context!.createBufferSource();
+      const gain = this.context!.createGain();
       
       // Set buffer and loop
       source.buffer = buffer;
@@ -107,7 +109,7 @@ export class RainSoundEngine {
       
       // Connect nodes
       source.connect(gain);
-      gain.connect(this.context.destination);
+      gain.connect(this.context!.destination);
       
       // Set volume
       gain.gain.value = volume;
