@@ -24,27 +24,27 @@ export class RainSoundEngine {
 
     const soundUrls: Record<string, string> = {
       // Default gentle sounds
-      gentleRain: '/sounds/newSounds/32 - Descending Drizzles.flac',
-      distantRain: '/sounds/newSounds/20 - Woodland Drizzle.flac',
+      gentleRain: '/sounds/newSounds/DescendingDrizzles.flac',
+      distantRain: '/sounds/newSounds/WoodlandDrizzle.flac',
       
       // Rain variations
-      heavyRain: '/sounds/newSounds/04 - Cascading Showers.flac',
-      urbanRain: '/sounds/newSounds/22 - Urban Rainfall Serenade.flac',
-      woodlandRain: '/sounds/newSounds/08 - Leafy Woodland Drizzles.flac',
-      jungleRain: '/sounds/newSounds/09 - Jungle Precipitation.flac',
-      coastalRain: '/sounds/newSounds/16 - Coastal Showers.flac',
-      indoorRain: '/sounds/newSounds/18 - Indoor Droplets.flac',
-      overheadRain: '/sounds/newSounds/47 - Overhead Rainfall.flac',
-      commuterRain: '/sounds/newSounds/49 - Commuter Rain.flac',
+      heavyRain: '/sounds/newSounds/CascadingShowers.flac',
+      urbanRain: '/sounds/newSounds/UrbanRainfallSerenade.flac',
+      woodlandRain: '/sounds/newSounds/LeafyWoodlandDrizzles.flac',
+      jungleRain: '/sounds/newSounds/JunglePrecipitation.flac',
+      coastalRain: '/sounds/newSounds/CoastalShowers.flac',
+      indoorRain: '/sounds/newSounds/IndoorDroplets.flac',
+      overheadRain: '/sounds/newSounds/OverheadRainfall.flac',
+      commuterRain: '/sounds/newSounds/CommuterRain.flac',
 
       // Ambient sounds
-      urbanDrain: '/sounds/newSounds/46 - Urban Drain Serenade.flac',
-      waves: '/sounds/newSounds/34 - Distant Mighty Waves.flac',
-      seafloor: '/sounds/newSounds/35 - Tranquil Seafloor.flac',
-      river: '/sounds/newSounds/40 - Nearby River Flow.flac',
-      gulls: '/sounds/newSounds/15 - Overhead Wave Gulls.flac',
-      nocturnalBirds: '/sounds/newSounds/50 - Nocturnal Avian Chorus.flac',
-      field: '/sounds/newSounds/05 - Open Field.flac'
+      urbanDrain: '/sounds/newSounds/UrbanDrainSerenade.flac',
+      waves: '/sounds/newSounds/DistantMightyWaves.flac',
+      seafloor: '/sounds/newSounds/TranquilSeafloor.flac',
+      river: '/sounds/newSounds/NearbyRiverFlow.flac',
+      gulls: '/sounds/newSounds/OverheadWaveGulls.flac',
+      nocturnalBirds: '/sounds/newSounds/NocturnalAvianChorus.flac',
+      field: '/sounds/newSounds/OpenField.flac'
     };
 
     const url = soundUrls[soundId];
