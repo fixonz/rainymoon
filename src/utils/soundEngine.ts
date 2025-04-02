@@ -24,27 +24,27 @@ export class RainSoundEngine {
 
     const soundUrls: Record<string, string> = {
       // Default gentle sounds
-      gentleRain: '/sounds/soundsLibrary/32-Descending-Drizzles.flac',
-      distantRain: '/sounds/soundsLibrary/20-Woodland-Drizzle.flac',
+      gentleRain: '/sounds/newSounds/32 - Descending Drizzles.flac',
+      distantRain: '/sounds/newSounds/20 - Woodland Drizzle.flac',
       
       // Rain variations
-      heavyRain: '/sounds/soundsLibrary/04-Cascading-Showers.flac',
-      urbanRain: '/sounds/soundsLibrary/22-Urban-Rainfall-Serenade.flac',
-      woodlandRain: '/sounds/soundsLibrary/08-Leafy-Woodland-Drizzles.flac',
-      jungleRain: '/sounds/soundsLibrary/09-Jungle-Precipitation.flac',
-      coastalRain: '/sounds/soundsLibrary/16-Coastal-Showers.flac',
-      indoorRain: '/sounds/soundsLibrary/18-Indoor-Droplets.flac',
-      overheadRain: '/sounds/soundsLibrary/47-Overhead-Rainfall.flac',
-      commuterRain: '/sounds/soundsLibrary/49-Commuter-Rain.flac',
+      heavyRain: '/sounds/newSounds/04 - Cascading Showers.flac',
+      urbanRain: '/sounds/newSounds/22 - Urban Rainfall Serenade.flac',
+      woodlandRain: '/sounds/newSounds/08 - Leafy Woodland Drizzles.flac',
+      jungleRain: '/sounds/newSounds/09 - Jungle Precipitation.flac',
+      coastalRain: '/sounds/newSounds/16 - Coastal Showers.flac',
+      indoorRain: '/sounds/newSounds/18 - Indoor Droplets.flac',
+      overheadRain: '/sounds/newSounds/47 - Overhead Rainfall.flac',
+      commuterRain: '/sounds/newSounds/49 - Commuter Rain.flac',
 
       // Ambient sounds
-      urbanDrain: '/sounds/soundsLibrary/46-Urban-Drain-Serenade.flac',
-      waves: '/sounds/soundsLibrary/34-Distant-Mighty-Waves.flac',
-      seafloor: '/sounds/soundsLibrary/35-Tranquil-Seafloor.flac',
-      river: '/sounds/soundsLibrary/40-Nearby-River-Flow.flac',
-      gulls: '/sounds/soundsLibrary/15-Overhead-Wave-Gulls.flac',
-      nocturnalBirds: '/sounds/soundsLibrary/50-Nocturnal-Avian-Chorus.flac',
-      field: '/sounds/soundsLibrary/05-Open-Field.flac'
+      urbanDrain: '/sounds/newSounds/46 - Urban Drain Serenade.flac',
+      waves: '/sounds/newSounds/34 - Distant Mighty Waves.flac',
+      seafloor: '/sounds/newSounds/35 - Tranquil Seafloor.flac',
+      river: '/sounds/newSounds/40 - Nearby River Flow.flac',
+      gulls: '/sounds/newSounds/15 - Overhead Wave Gulls.flac',
+      nocturnalBirds: '/sounds/newSounds/50 - Nocturnal Avian Chorus.flac',
+      field: '/sounds/newSounds/05 - Open Field.flac'
     };
 
     const url = soundUrls[soundId];
@@ -53,6 +53,7 @@ export class RainSoundEngine {
     }
 
     try {
+      console.log(`Attempting to load sound from: ${url}`);
       const response = await fetch(url);
       if (!response.ok) {
         console.error(`Failed to load sound ${soundId} from ${url}, status: ${response.status}`);
@@ -66,6 +67,7 @@ export class RainSoundEngine {
       console.error(`Error loading sound ${soundId} from ${url}:`, error);
       // Fallback to RainyMood.mp3 if other sounds fail
       try {
+        console.log('Attempting to load fallback sound...');
         const fallbackResponse = await fetch('/sounds/RainyMood.mp3');
         if (!fallbackResponse.ok) {
           throw new Error(`Fallback HTTP error! status: ${fallbackResponse.status}`);
