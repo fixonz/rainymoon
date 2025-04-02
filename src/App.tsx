@@ -33,17 +33,15 @@ const App: React.FC = () => {
     if (!soundEngineRef.current) return;
     
     try {
-      setIsLoading(true);
       if (isPlaying) {
-        await soundEngineRef.current.stopSound('gentleRain');
+        soundEngineRef.current.stopSound('gentleRain');
+        setIsPlaying(false);
       } else {
         await soundEngineRef.current.playSound('gentleRain', 1, true);
+        setIsPlaying(true);
       }
-      setIsPlaying(!isPlaying);
     } catch (error) {
       console.error('Error toggling playback:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -75,7 +73,6 @@ const App: React.FC = () => {
       const month = date.getMonth() + 1;
       const day = date.getDate();
 
-      // Simple moon phase calculation (can be improved with more accurate algorithm)
       const phase = ((year * 12 + month) * 30 + day) % 30;
       let moonPhase: MoonPhase = 'full';
 
@@ -92,7 +89,7 @@ const App: React.FC = () => {
     };
 
     updateMoonPhase();
-    const interval = setInterval(updateMoonPhase, 24 * 60 * 60 * 1000); // Update daily
+    const interval = setInterval(updateMoonPhase, 24 * 60 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -105,9 +102,8 @@ const App: React.FC = () => {
         const engine = new RainSoundEngine();
         await engine.init();
         soundEngineRef.current = engine;
-        console.log('Audio preloaded successfully');
       } catch (error) {
-        console.error('Error preloading audio:', error);
+        console.error('Error initializing audio:', error);
       } finally {
         setIsLoading(false);
       }
@@ -165,20 +161,8 @@ const App: React.FC = () => {
         intensity={intensity}
         showLightning={showLightning}
         onVolumeChange={handleVolumeChange}
+        isLoading={isLoading}
       />
-
-      {/* Status indicator */}
-      <div className="fixed top-4 right-4 z-50">
-        <div className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-          isLoading 
-            ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-            : isPlaying 
-              ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-              : 'bg-red-500/20 text-red-400 border border-red-500/30'
-        }`}>
-          {isLoading ? 'Loading...' : isPlaying ? 'Playing' : 'Paused'}
-        </div>
-      </div>
     </div>
   );
 };
