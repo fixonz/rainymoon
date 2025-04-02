@@ -1,0 +1,45 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Production
+build
+dist
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
+
+# Sound files - exclude large files
+public/sounds/rain/743916__klankbeeld__woodpecker-unknown-1122-am-forest-forest-loonse-en-drunense-duinen.wav
+public/sounds/RainyMood.mp3
+public/sounds/rain/195656__klankbeeld__thunder-in-the-city-1-am-130728_00.flac
+
+# Only include new sounds
+!public/sounds/newSounds/

@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 26, 31, 44;
+  --background-end-rgb: 42, 63, 95;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.rain-drop {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  animation: rain 1s linear infinite;
+}
+
+@keyframes rain {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Moon styles */
+.moon-container {
+  position: fixed;
+  top: 20%;
+  right: 20%;
+  z-index: 1000;
+}
+
+.moon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+  background: #f5f5f5;
+  box-shadow: 0 0 50px rgba(255, 255, 200, 0.8);
+  transition: all 0.3s ease;
+}
+
+.moon::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255, 255, 200, 0.3) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.crater {
+  position: absolute;
+  border-radius: 50%;
+  background: #e0e0e0;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.crater::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.crater-1 {
+  width: 30px;
+  height: 30px;
+  top: 20%;
+  left: 20%;
+}
+
+.crater-2 {
+  width: 40px;
+  height: 40px;
+  top: 40%;
+  left: 50%;
+}
+
+.crater-3 {
+  width: 25px;
+  height: 25px;
+  top: 60%;
+  left: 30%;
+}
