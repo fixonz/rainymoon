@@ -42,8 +42,8 @@ const App: React.FC = () => {
         }
       } else {
         if (!activeSound) {
-          setActiveSound('gentleRain');
-          await soundEngineRef.current.playSound('gentleRain', 1, true);
+          setActiveSound('field');
+          await soundEngineRef.current.playSound('field', 0.7, true);
         } else {
           await soundEngineRef.current.playSound(activeSound, 1, true);
         }

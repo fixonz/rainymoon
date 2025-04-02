@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { SOUNDS, SoundId } from '../types/sound';
 
 interface SoundManagerProps {
   onPlayPause: () => void;
@@ -67,7 +66,7 @@ const SoundManager: React.FC<SoundManagerProps> = ({
         {/* Main controls row */}
         <div className="flex items-center justify-between gap-4 mb-4">
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={onPlayPause}
             className={`px-4 py-2 rounded-lg ${
               isPlaying ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-green-500/20 text-green-400 border border-green-500/30'
             }`}
