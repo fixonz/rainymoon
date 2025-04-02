@@ -10,7 +10,6 @@ import { RainSoundEngine } from './utils/soundEngine';
 
 const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [intensity, setIntensity] = useState<'light' | 'medium' | 'heavy'>('medium');
   const [showLightning, setShowLightning] = useState(false);
   const [showStars] = useState(true);
@@ -30,16 +29,18 @@ const App: React.FC = () => {
   const soundEngineRef = useRef<RainSoundEngine | null>(null);
 
   const handlePlayPause = async () => {
-    if (!soundEngineRef.current) return;
+    if (!soundEngineRef.current) {
+      soundEngineRef.current = new RainSoundEngine();
+      await soundEngineRef.current.init();
+    }
     
     try {
       if (isPlaying) {
         soundEngineRef.current.stopSound('gentleRain');
-        setIsPlaying(false);
       } else {
         await soundEngineRef.current.playSound('gentleRain', 1, true);
-        setIsPlaying(true);
       }
+      setIsPlaying(!isPlaying);
     } catch (error) {
       console.error('Error toggling playback:', error);
     }
@@ -94,30 +95,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Initialize sound engine
-  useEffect(() => {
-    const initAudio = async () => {
-      setIsLoading(true);
-      try {
-        const engine = new RainSoundEngine();
-        await engine.init();
-        soundEngineRef.current = engine;
-      } catch (error) {
-        console.error('Error initializing audio:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    initAudio();
-
-    return () => {
-      if (soundEngineRef.current) {
-        soundEngineRef.current.cleanup();
-      }
-    };
-  }, []);
-
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-black">
       {/* Background gradient */}
@@ -161,7 +138,6 @@ const App: React.FC = () => {
         intensity={intensity}
         showLightning={showLightning}
         onVolumeChange={handleVolumeChange}
-        isLoading={isLoading}
       />
     </div>
   );
